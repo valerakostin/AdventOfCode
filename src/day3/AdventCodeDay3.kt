@@ -3,7 +3,7 @@ package day3
 import utils.getLinesFromResources
 
 fun task1(input: List<String>): Int {
-    return input.map(::parseDigits).filter(::isValid).count()
+    return input.map(::parseDigits).filter(::isValidTriangle).count()
 }
 
 fun task2(input: List<String>): Int {
@@ -12,19 +12,19 @@ fun task2(input: List<String>): Int {
     var count = 0
     for (i in 0..all.size - 3 step 3) {
 
-        if (isValid(all[i].first, all[i + 1].first, all[i + 2].first))
+        if (isValidTriangle(all[i].first, all[i + 1].first, all[i + 2].first))
             count++
-        if (isValid(all[i].second, all[i + 1].second, all[i + 2].second))
+        if (isValidTriangle(all[i].second, all[i + 1].second, all[i + 2].second))
             count++
-        if (isValid(all[i].third, all[i + 1].third, all[i + 2].third))
+        if (isValidTriangle(all[i].third, all[i + 1].third, all[i + 2].third))
             count++
     }
     return count
 }
 
-fun isValid(p1: Int, p2: Int, p3: Int): Boolean = p1 + p2 > p3 && p1 + p3 > p2 && p2 + p3 > p1
+fun isValidTriangle(p1: Int, p2: Int, p3: Int): Boolean = p1 + p2 > p3 && p1 + p3 > p2 && p2 + p3 > p1
 
-fun isValid(triple: Triple<Int, Int, Int>) = isValid(triple.first, triple.second, triple.third)
+fun isValidTriangle(triple: Triple<Int, Int, Int>) = isValidTriangle(triple.first, triple.second, triple.third)
 
 fun parseDigits(input: String): Triple<Int, Int, Int> {
 
@@ -45,8 +45,8 @@ fun parseDigits(input: String): Triple<Int, Int, Int> {
 fun solveProblem() {
 
     val input = getLinesFromResources("InputDay3.txt")
-    val result1 = task1(input)
 
+    val result1 = task1(input)
     println("Task1  $result1")
 
     val result2 = task2(input)
