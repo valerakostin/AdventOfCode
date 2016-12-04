@@ -37,13 +37,17 @@ object Keypad {
 
     private fun getFancyKeypadCode(initial: String, sequence: String) = computeCode(initial, sequence, fancyKeypad)
 
-    fun task1(input: List<String>): String = input.fold("") { acc, command -> acc + Keypad.getStandardKeypadCode(if (acc.length == 0) "5" else acc.last().toString(), command) }
+    fun task1(input: List<String>): String = input.fold("") { acc, command -> acc + Keypad.getStandardKeypadCode(if (acc.isEmpty()) "5" else acc.last().toString(), command) }
 
-    fun task2(input: List<String>): String = input.fold("") { acc, command -> acc + Keypad.getFancyKeypadCode(if (acc.length == 0) "5" else acc.last().toString(), command) }
+    fun task2(input: List<String>): String = input.fold("") { acc, command -> acc + Keypad.getFancyKeypadCode(if (acc.isEmpty()) "5" else acc.last().toString(), command) }
 }
 
-fun main(argc: Array<String>) {
+fun solution() {
     val lines = getLinesFromResources("InputDay2.txt")
     println(task1(lines))
     println(task2(lines))
+}
+
+fun main(argc: Array<String>) {
+    solution()
 }
