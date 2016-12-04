@@ -12,7 +12,7 @@ data class Move(val turn: Turn, val num: Int) {
 
         fun parseMoves(): List<Move> {
             return getLinesFromResources("InputDay1.txt").flatMap { it.split(',') }.map(String::trim)
-                    .map { Move(Turn.LEFT.getTurnFor(it[0]), it.substring(1).toInt()) }.toList()
+                    .map { Move(Turn.LEFT.getTurnFor(it[0]), it.substring(1).toInt()) }
         }
     }
 }
@@ -29,9 +29,6 @@ enum class Direction { NORTH, EAST, WEST, SOUTH;
             SOUTH -> return if (turn == Turn.RIGHT) Triple(WEST, -1, 0) else Triple(EAST, 1, 0)
             EAST -> return if (turn == Turn.RIGHT) Triple(SOUTH, 0, -1) else Triple(NORTH, 0, 1)
             WEST -> return if (turn == Turn.RIGHT) Triple(NORTH, 0, 1) else Triple(SOUTH, 0, -1)
-            else -> {
-                throw IllegalArgumentException()
-            }
         }
     }
 }
@@ -67,7 +64,7 @@ private fun task2(initialPosition: Position, moves: List<Move>) {
     val cache = mutableSetOf(initialPosition.initial)
     var currentPosition = initialPosition
     for (move in moves) {
-        var positions = currentPosition.moves(move)
+        val positions = currentPosition.moves(move)
         for (p in positions) {
 
             currentPosition = p
