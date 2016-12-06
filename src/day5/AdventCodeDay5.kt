@@ -6,13 +6,31 @@ object AdventMd5Generator {
 
     private val inst = MessageDigest.getInstance("MD5")
     private var currentValue = 1000000
+    private val cache = mutableListOf(1000000)
+
+
+    private fun next(): Int {
+
+        if (cache.last() > currentValue)
+            currentValue = cache.first { it > currentValue }
+        else
+            currentValue++
+        return currentValue
+    }
 
     fun nextCode(secret: String): String {
 
-        return generateSequence(0) { currentValue++ }.map { secret + it.toString() }
+
+        val value = generateSequence { next() }
+                .map { secret + it.toString() }
                 .map { inst.digest(it.toByteArray()) }
                 .map(::convertToString).filter { it != null && it.startsWith("00000") }.take(1)
                 .joinToString(separator = "")
+
+        if (currentValue !in cache)
+            cache.add(currentValue)
+        return value
+
     }
 
     fun reset() {
@@ -22,7 +40,7 @@ object AdventMd5Generator {
 
 fun convertToString(bytes: ByteArray): String? {
 
-    if (bytes[0] != 0.toByte() && bytes[1] != 0.toByte())
+    if (bytes[0] != 0.toByte() && bytes[1] != 0.toByte() && bytes[2] < 127)
         return null
     val sb = StringBuilder(2 * bytes.size)
     for (b in bytes) {
