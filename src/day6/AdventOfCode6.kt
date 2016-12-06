@@ -27,11 +27,9 @@ fun solve() {
     val result = columns.fold(Pair(StringBuilder(), StringBuilder())) {
         acc, dist ->
         val comparator = compareBy<Char> { dist[it] }.reversed().thenBy { it }
-        val firstKey = dist.toSortedMap(comparator).firstKey()
-        val lastKey = dist.toSortedMap(comparator).lastKey()
-
-        acc.first.append(firstKey)
-        acc.first.append(lastKey)
+        val keys = dist.toSortedMap(comparator)
+        acc.first.append(keys.firstKey())
+        acc.second.append(keys.lastKey())
         acc
     }
 
