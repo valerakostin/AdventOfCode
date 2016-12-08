@@ -50,7 +50,6 @@ class Display(val rows: Int, val columns: Int) {
 
             fillRect(x, y)
         } else {
-
             val index = command.lastIndexOf(' ')
             val rotationCount = command.substring(index).trim().toInt()
 
