@@ -14,7 +14,7 @@ class Display(val rows: Int, val columns: Int) {
         for (i in 0..rows - 1) {
             (0..columns - 1)
                     .map { model.contains(Pair(i, it)) }
-                    .map { if (it) "*" else " " }
+                    .map { if (it) 0.toChar() else ' ' }
                     .forEach(::print)
             println()
         }
@@ -65,7 +65,6 @@ class Display(val rows: Int, val columns: Int) {
         }
     }
 }
-
 
 fun solution() {
 
