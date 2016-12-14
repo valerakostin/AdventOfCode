@@ -1,9 +1,11 @@
 package day14
 
 
+import day5.convertToString
 import java.security.MessageDigest
 
 val cache = mutableMapOf<Int, String>()
+val hashCache = mutableMapOf<String, String>()
 
 private fun nextHash(secret: String, number: Int, stretched: Boolean = false): String {
 
@@ -80,7 +82,7 @@ private fun computeKey(input: String, stretched: Boolean = false) {
     }
 }
 
-private fun computeStretchedCode(code: String): String {
+/*private fun computeStretchedCode(code: String): String {
 
     val inst = MessageDigest.getInstance("MD5")
     var result = code
@@ -90,6 +92,25 @@ private fun computeStretchedCode(code: String): String {
     }
     // do not lambda here it's to slow
     //val result = (0..2016).fold(code) { acc, _ -> inst.digest(acc.toByteArray()).convertToHexString() }
+    return result
+}
+*/
+
+fun computeStretchedCode(code: String): String {
+    val inst = MessageDigest.getInstance("MD5")
+    var result = code
+    for (i in 0..2015) {
+        val v = hashCache[result]
+        if (v != null) {
+            result = v
+        } else {
+
+            val byteArray = inst.digest(result.toByteArray())
+            val vv = byteArray.convertToHexString()
+            hashCache[result] = vv
+            result = vv
+        }
+    }
     return result
 }
 
