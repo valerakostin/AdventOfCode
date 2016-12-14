@@ -108,8 +108,7 @@ fun task1() {
 
 fun task2() {
     cache.clear()
-    //val input = "yjdafjpo"
-    val input = "abc"
+    val input = "yjdafjpo"
     computeKey(input, true)
 }
 
