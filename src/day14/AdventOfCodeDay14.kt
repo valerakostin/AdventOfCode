@@ -1,7 +1,6 @@
 package day14
 
 
-import day5.convertToString
 import java.security.MessageDigest
 
 val cache = mutableMapOf<Int, String>()
