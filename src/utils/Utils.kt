@@ -23,7 +23,7 @@ fun computeMD5Hash(passCode: String): String {
 }
 
 
-private fun ByteArray.convertToHexString(): String {
+fun ByteArray.convertToHexString(): String {
     val sb = StringBuilder(2 * this.size)
     for (b in this) {
         sb.append(String.format("%02x", b and 0xff.toByte()))

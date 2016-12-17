@@ -1,6 +1,7 @@
 package day14
 
 
+import utils.convertToHexString
 import java.security.MessageDigest
 
 val cache = mutableMapOf<Int, String>()
@@ -28,15 +29,6 @@ private fun nextHash(secret: String, number: Int, stretched: Boolean = false): S
 private fun hasSequenceOfFive(input: String, char: Char): Boolean {
     val pattern = buildString { (0..4).forEach { append(char) } }
     return pattern in input
-}
-
-
-private fun ByteArray.convertToHexString(): String {
-    val sb = StringBuilder(2 * this.size)
-    for (b in this) {
-        sb.append(String.format("%02x", b and 0xff.toByte()))
-    }
-    return sb.toString()
 }
 
 private fun getSequenceOfFiveData(input: String, from: Int, char: Char, stretched: Boolean = false): Pair<String, Int>? {
