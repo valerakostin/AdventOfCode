@@ -125,10 +125,13 @@ fun task2() {
 }
 
 fun solution() {
+
     task1()
     task2()
 }
 
 fun main(argc: Array<String>) {
+
+    println("Day14")
     solution()
 }

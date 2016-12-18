@@ -79,5 +79,7 @@ fun solution() {
 }
 
 fun main(argc: Array<String>) {
+
+    println("Day8")
     solution()
 }

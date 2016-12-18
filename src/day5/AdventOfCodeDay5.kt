@@ -91,5 +91,6 @@ fun solution() {
 
 fun main(argc: Array<String>) {
 
+    println("Day5")
     solution()
 }

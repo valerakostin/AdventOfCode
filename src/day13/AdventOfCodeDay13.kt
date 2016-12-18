@@ -99,14 +99,16 @@ fun task2() {
         visited.addAll(next)
     }
     println("Task2 ${visited.size}")
-
 }
 
 fun solution() {
+
     task1()
     task2()
 }
 
 fun main(argc: Array<String>) {
+
+    println("Day13")
     solution()
 }

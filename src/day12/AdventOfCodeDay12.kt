@@ -93,15 +93,15 @@ fun solution() {
     val result1 = processor.getRegisterValue("a")
     println("Task1 $result1")
 
-
     processor.reset()
     val lines2 = listOf("cpy 1 c") + lines
     processor.executeProgram(lines2)
     val result2 = processor.getRegisterValue("a")
     println("Task2 $result2")
-
 }
 
 fun main(argc: Array<String>) {
+
+    println("Day12")
     solution()
 }

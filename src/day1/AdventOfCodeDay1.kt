@@ -25,10 +25,10 @@ enum class Direction { NORTH, EAST, WEST, SOUTH;
     fun getDirection(turn: Turn): Triple<Direction, Int, Int> {
         return when (this) {
             NORTH ->
-                return if (turn == Turn.RIGHT) Triple(EAST, 1, 0) else Triple(WEST, -1, 0)
-            SOUTH -> return if (turn == Turn.RIGHT) Triple(WEST, -1, 0) else Triple(EAST, 1, 0)
-            EAST -> return if (turn == Turn.RIGHT) Triple(SOUTH, 0, -1) else Triple(NORTH, 0, 1)
-            WEST -> return if (turn == Turn.RIGHT) Triple(NORTH, 0, 1) else Triple(SOUTH, 0, -1)
+                if (turn == Turn.RIGHT) Triple(EAST, 1, 0) else Triple(WEST, -1, 0)
+            SOUTH -> if (turn == Turn.RIGHT) Triple(WEST, -1, 0) else Triple(EAST, 1, 0)
+            EAST -> if (turn == Turn.RIGHT) Triple(SOUTH, 0, -1) else Triple(NORTH, 0, 1)
+            WEST -> if (turn == Turn.RIGHT) Triple(NORTH, 0, 1) else Triple(SOUTH, 0, -1)
         }
     }
 }
@@ -86,6 +86,8 @@ private fun solve() {
 }
 
 fun main(argc: Array<String>) {
+
+    println("Day1")
     solve()
 }
 
