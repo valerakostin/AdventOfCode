@@ -132,6 +132,6 @@ fun solution() {
 
 fun main(argc: Array<String>) {
 
-    println("Day14")
+    println("Day14:")
     solution()
 }

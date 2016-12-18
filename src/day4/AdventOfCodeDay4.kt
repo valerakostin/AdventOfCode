@@ -69,6 +69,6 @@ fun solution() {
 
 fun main(args: Array<String>) {
 
-    println("Day4")
+    println("Day4:")
     solution()
 }

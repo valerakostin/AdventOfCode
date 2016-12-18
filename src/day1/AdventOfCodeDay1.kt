@@ -87,7 +87,7 @@ private fun solve() {
 
 fun main(argc: Array<String>) {
 
-    println("Day1")
+    println("Day1:")
     solve()
 }
 

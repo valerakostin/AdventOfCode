@@ -120,7 +120,7 @@ object BotFactory {
 
 fun main(argc: Array<String>) {
 
-    println("Day10")
+    println("Day10:")
     BotFactory.solve()
 
     val botId = BotFactory.bots.entries.filter { it.value.low == 17 && it.value.high == 61 }.first().key
