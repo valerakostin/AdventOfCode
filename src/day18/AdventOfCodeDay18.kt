@@ -6,37 +6,27 @@ import utils.getLinesFromResources
 data class Field(val initial: String) {
 
     private var save: Int = 0
-    private var current = initial
+    private var current = ".$initial."
 
     init {
-        save = current.count { it == '.' }
+        save = initial.count { it == '.' }
     }
 
     fun getNumberOfSaveAfter(times: Int): Int {
 
         repeat(times) {
             val next = buildString {
-                for (i in 0..current.length - 1) {
-                    val c = current[i]
-
-                    val r = if (i + 1 <= current.length - 1) current[i + 1] else '.'
-
-                    val l = if ((i - 1) < 0) '.' else current[i - 1]
-
-                    if (l == '^' && c == '^' && r == '.')
-                        append('^')
-                    else if (l == '.' && c == '^' && r == '^')
-                        append('^')
-                    else if (l == '^' && c == '.' && r == '.')
-                        append('^')
-                    else if (l == '.' && c == '.' && r == '^')
-                        append('^')
-                    else
+                append('.')
+                for (i in 1..current.length - 2) {
+                    if (current[i - 1] == current[i + 1])
                         append('.')
+                    else
+                        append('^')
                 }
+                append('.')
             }
 
-            save += next.count { it == '.' }
+            save += next.count { it == '.' } - 2
             current = next
         }
         return save
