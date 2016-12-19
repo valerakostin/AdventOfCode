@@ -51,6 +51,7 @@ fun getClockWinner(participants: MutableList<Int>): Int {
 
 */
 fun task1() {
+
     // (number - 2^a) *2 + 1
     val number = 3012210
     var i = 2
@@ -67,8 +68,8 @@ fun task1() {
 
 
 fun task2() {
-// (number - 3^a)
 
+// (number - 3^a)
     val number = 3012210
     var i = 3
 
@@ -78,7 +79,6 @@ fun task2() {
 
     val result = (number - i / 3)
     println("Task2 $result")
-
 }
 
 
