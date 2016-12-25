@@ -4,7 +4,11 @@ typealias Program = List<String>
 
 class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
 
-    var registers = mutableMapOf<String, Int>()
+    private var registers = mutableMapOf<String, Int>()
+    private val sb = StringBuilder()
+
+    var stopOutputAt: ((String) -> Boolean)? = null
+
 
     init {
         registers.putAll(initialState)
@@ -20,7 +24,7 @@ class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
             val command = commands[programCounter]
 
             // println(registers)
-            //  println(program[programCounter])
+            // println(program[programCounter])
 
             when (command) {
                 is Command.Inc -> {
@@ -102,6 +106,16 @@ class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
 
                     programCounter++
                 }
+                is Command.Out -> {
+
+                    val reg1 = if (command.regA.isRegister()) registers.getOrDefault(command.regA, 0) else command.regA.toInt()
+                    sb.append(reg1)
+
+                    val result = stopOutputAt?.invoke(sb.toString())
+                    if (result ?: false)
+                        return
+                    programCounter++
+                }
             }
         }
     }
@@ -110,6 +124,10 @@ class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
 
     fun getRegisterValue(reg: String) = registers.getOrDefault(reg, 0)
 
+
+    fun getOutput(): String {
+        return sb.toString()
+    }
 
     sealed class Command(val source: String) {
 
@@ -121,6 +139,7 @@ class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
         object Nop : Command("")
         class Add(val regA: String, val regB: String) : Command("")
         class Mul(val regA: String, val regB: String) : Command("")
+        class Out(val regA: String) : Command("")
     }
 
     companion object {
@@ -138,6 +157,7 @@ class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
                     "nop" -> Command.Nop
                     "add" -> Command.Add(it[1], it[2])
                     "mul" -> Command.Mul(it[1], it[2])
+                    "out" -> Command.Out(it[1])
                     else -> {
                         println("Unknown command ${it[0]}")
                         Command.Nop
