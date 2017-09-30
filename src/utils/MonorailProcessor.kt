@@ -5,7 +5,8 @@ typealias Program = List<String>
 class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
 
     private var registers = mutableMapOf<String, Int>()
-    private val sb = StringBuilder()
+    //private val sb = StringBuilder()
+    private val output = mutableListOf<Byte>()
 
     var stopOutputAt: ((String) -> Boolean)? = null
 
@@ -109,9 +110,11 @@ class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
                 is Command.Out -> {
 
                     val reg1 = if (command.regA.isRegister()) registers.getOrDefault(command.regA, 0) else command.regA.toInt()
-                    sb.append(reg1)
 
-                    val result = stopOutputAt?.invoke(sb.toString())
+                    output.add(reg1.toByte())
+
+
+                    val result = stopOutputAt?.invoke(output.joinToString(separator = ""))
                     if (result ?: false)
                         return
                     programCounter++
@@ -120,13 +123,18 @@ class MonorailProcessor(initialState: Map<String, Int> = emptyMap()) {
         }
     }
 
+
     fun String.isRegister() = all(Char::isLetter)
 
     fun getRegisterValue(reg: String) = registers.getOrDefault(reg, 0)
 
 
     fun getOutput(): String {
-        return sb.toString()
+        return output.joinToString(separator = "")
+    }
+
+    fun getStringOutput(): String {
+        return output.map { b -> b.toChar() }.joinToString(separator = "")
     }
 
     sealed class Command(val source: String) {
