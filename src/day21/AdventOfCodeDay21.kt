@@ -59,13 +59,13 @@ sealed class Operation {
 
             if ("left" == direction) {
                 val l = pos % input.length
-                val subString = input.substring(0..l - 1)
+                val subString = input.substring(0 until l)
                 return input.substring(l) + subString
 
             } else {
                 val l = pos % input.length
                 val subString = input.substring(input.length - l)
-                return subString + input.substring(0..input.length - l - 1)
+                return subString + input.substring(0 until input.length - l)
             }
         }
     }

@@ -43,8 +43,8 @@ private fun initialize() {
 
     val lines = getLinesFromResources("InputDay24.txt")
 
-    for (i in 0..lines.size - 1) {
-        for (j in 0..lines[i].length - 1) {
+    for (i in 0 until lines.size) {
+        for (j in 0 until lines[i].length) {
 
             val char = lines[i][j]
 
@@ -112,7 +112,7 @@ private fun computeDistances(): Map<Edge, Int> {
 
         if (start != null) {
             val shortDistances = computeShortestPaths(start, adjustments)
-            for (j in 1..goalCell.size - 1) {
+            for (j in 1 until goalCell.size) {
                 val end = goalCell[j]
 
                 if (end != null && start != end) {
@@ -134,7 +134,7 @@ private fun computeDistances(): Map<Edge, Int> {
 
 private fun permute(items: List<Int>, startIndex: Int, cache: Map<Edge, Int>, closedPath: Boolean = false) {
 
-    for (i in startIndex..items.size - 1) {
+    for (i in startIndex until items.size) {
         Collections.swap(items, i, startIndex)
         permute(items, startIndex + 1, cache, closedPath)
         Collections.swap(items, startIndex, i)

@@ -11,8 +11,8 @@ class Display(val rows: Int, val columns: Int) {
 
     fun displayCode() {
 
-        for (i in 0..rows - 1) {
-            (0..columns - 1)
+        for (i in 0 until rows) {
+            (0 until columns)
                     .map { model.contains(Pair(i, it)) }
                     .map { if (it) 0.toChar() else ' ' }
                     .forEach(::print)
@@ -21,19 +21,19 @@ class Display(val rows: Int, val columns: Int) {
     }
 
     private fun fillRect(x: Int, y: Int) {
-        for (j in 0..x - 1) {
-            (0..y - 1).mapTo(model) { Pair(it, j) }
+        for (j in 0 until x) {
+            (0 until y).mapTo(model) { Pair(it, j) }
         }
     }
 
     private fun rotateColumn(column: Int, rotations: Int) {
-        val currentElements = (0..rows - 1).map { Pair(it, column) }.filter { it in model }
+        val currentElements = (0 until rows).map { Pair(it, column) }.filter { it in model }
         model.removeAll(currentElements)
         currentElements.map { Pair((it.first + rotations) % rows, column) }.forEach { model.add(it) }
     }
 
     private fun rotateRow(row: Int, rotations: Int) {
-        val currentElements = (0..columns - 1).map { Pair(row, it) }.filter { it in model }
+        val currentElements = (0 until columns).map { Pair(row, it) }.filter { it in model }
         model.removeAll(currentElements)
         currentElements.map { Pair(row, (it.second + rotations) % columns) }.forEach { model.add(it) }
     }
